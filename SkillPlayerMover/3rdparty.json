@@ -1,0 +1,17 @@
+{
+  "AssemblyName": "SkillPlayerMover",
+  "FileList": [
+    "SkillPlayerMover.cs",
+    "SkillPlayerMoverGui.baml",
+    "SkillPlayerMoverGui.g.cs",
+    "SkillPlayerMoverGui.xaml",
+    "SkillPlayerMoverGui.xaml.cs",
+    "SkillPlayerMoverSettings.cs",
+    "Helpers\\MiscHelpers.cs",
+    "Helpers\\MoveHelper.cs",
+    "Helpers\\RoutineHelpers.cs",
+    "Helpers\\SkillsHelpers.cs"
+  ],
+  "Dependencies": [],
+  "References": []
+}

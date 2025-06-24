@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="ExampleMover.ExampleMoverGui"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mahapps="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:local="clr-namespace:ExampleMover"
+             mc:Ignorable="d" 
+             d:DesignHeight="Auto" 
+             d:DesignWidth="Auto">
+    <Grid x:Name="Root" Width="Auto" Height="Auto" DataContext="{x:Static local:ExampleMoverSettings.Instance}">
+        <ScrollViewer  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <GroupBox Header="Basic Configuration" BorderThickness="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="AvoidWallHugging: " Margin="5,0,0,0" ToolTipService.ToolTip="Allow the mover calculation to include positions near walls, this sometime trugger a Poe bug, especially with skills like Leap slam. [Better keep this off]" />
+                    <CheckBox Grid.Row="0" Grid.Column="1" x:Name="CheckBoxAvoidWallHugging" Margin="5,7,0,0" Content="" IsChecked="{Binding Path=AvoidWallHugging, Mode=TwoWay}" />
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="MoveRange: " Margin="5,0,0,0" ToolTipService.ToolTip="When the path calculation decide what is next point to move to, it filter out point to close to us, untill it reach a distance >= to this value. [25/30 are great average value]" />
+                    <mahapps:NumericUpDown Grid.Row="1" Grid.Column="1" Margin="5,0,0,0" Value="{Binding Path=MoveRange, Mode=TwoWay}" HorizontalAlignment="Left" Maximum="45" Minimum="5"/>
+
+                    <Label Grid.Row="2" Grid.Column="0" Content="SingleUseDistance: " Margin="5,0,0,0" ToolTipService.ToolTip="When the path calculation don't have points at a distance higher than this value, the single use is triggered and this mean that no skill to move is used, and the mover click the basic move skill only once,  instead of keeping the button pressed. this is the situatiion where you are approaching a npc, item, transaction or anything you want to interact to. [15/18 are best average]" />
+                    <mahapps:NumericUpDown Grid.Row="2" Grid.Column="1" Margin="5,0,0,0" Value="{Binding Path=SingleUseDistance, Mode=TwoWay}" HorizontalAlignment="Left" Maximum="45" Minimum="5"/>
+                </Grid>
+            </GroupBox>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

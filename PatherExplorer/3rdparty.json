@@ -1,0 +1,22 @@
+{
+  "AssemblyName": "PatherExplorer",
+  "FileList": [
+    "PatherExplorer.cs",
+    "PatherExplorerData.cs",
+    "PatherExplorerGui.baml",
+    "PatherExplorerGui.g.cs",
+    "PatherExplorerGui.xaml",
+    "PatherExplorerGui.xaml.cs",
+    "PatherExplorerSettings.cs",
+    "RenderGroup.cs",
+    "RenderLocalPlayer.cs",
+    "RenderNavGrid.cs",
+    "RenderObstacles.cs",
+    "RenderPathFinding.cs",
+    "RenderWalkPosition.cs",
+	"RenderRaycast.cs",
+	"RenderTgts.cs"
+  ],
+  "Dependencies": [],
+  "References": []
+}

@@ -1,0 +1,352 @@
+﻿<UserControl x:Class="PatherExplorer.PatherExplorerGui"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PatherExplorer"
+             mc:Ignorable="d" 
+             d:DesignHeight="Auto" d:DesignWidth="Auto" MinWidth="150">
+    <Grid x:Name="MainGrid">
+        <Border x:Name="Map_Border" ClipToBounds="True">
+            <Image x:Name="Map_Picture"
+                   RenderTransformOrigin="0.5, 0.5">
+                <!--RenderOptions.EdgeMode="Aliased"-->
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="225"/>
+                        <ScaleTransform ScaleX="-1"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+        </Border>
+
+        <Border x:Name="Obstacles_Border" ClipToBounds="True">
+            <Image x:Name="Obstacles_Picture"
+                   RenderTransformOrigin="0.5, 0.5">
+                <!--RenderOptions.EdgeMode="Aliased"-->
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="225"/>
+                        <ScaleTransform ScaleX="-1"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+        </Border>
+
+        <Border x:Name="Raycast_Border" ClipToBounds="True">
+            <Image x:Name="Raycast_Picture"
+                   RenderTransformOrigin="0.5, 0.5">
+                <!--RenderOptions.EdgeMode="Aliased"-->
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="225"/>
+                        <ScaleTransform ScaleX="-1"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+        </Border>
+
+        <Border x:Name="FindPath_Result_Border" ClipToBounds="True">
+            <Image x:Name="FindPath_Result_Picture"
+                   RenderTransformOrigin="0.5, 0.5">
+                <!--RenderOptions.EdgeMode="Aliased"-->
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="225"/>
+                        <ScaleTransform ScaleX="-1"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+        </Border>
+
+        <Border x:Name="Next_Selected_Walk_Position_Border" ClipToBounds="True">
+            <Image x:Name="Next_Selected_Walk_Position_Picture"
+                   RenderTransformOrigin="0.5, 0.5">
+                <!--RenderOptions.EdgeMode="Aliased"-->
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="225"/>
+                        <ScaleTransform ScaleX="-1"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+        </Border>
+
+        <Border x:Name="Tgts_Border" ClipToBounds="True" Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+            <Image x:Name="Tgts_Picture" 
+                   RenderTransformOrigin="0.5, 0.5">
+                <!--RenderOptions.EdgeMode="Aliased"-->
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="225"/>
+                        <ScaleTransform ScaleX="-1"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+        </Border>
+
+        <Border x:Name="My_Pos_Border" ClipToBounds="True" Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+            <Image x:Name="My_Pos_Picture" 
+                   MouseWheel="MapPicture_OnMouseWheel" 
+                   MouseLeftButtonDown="MapPicture_OnMouseLeftButtonDown"
+                   MouseLeftButtonUp="MapPicture_OnMouseLeftButtonUp"
+                   MouseMove="MapPicture_OnMouseMove"
+                   MouseRightButtonDown="My_Pos_Picture_OnMouseRightButtonDown"
+                   RenderTransformOrigin="0.5, 0.5">
+                <!--RenderOptions.EdgeMode="Aliased"-->
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="225"/>
+                        <ScaleTransform ScaleX="-1"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+        </Border>
+
+        <Popup Name="PopupWindow"
+            Placement="Mouse"
+            IsOpen="False"
+            StaysOpen="False"
+            MouseWheel="MapPicture_OnMouseWheel" 
+            MouseLeftButtonDown="MapPicture_OnMouseLeftButtonDown"
+            MouseLeftButtonUp="MapPicture_OnMouseLeftButtonUp"
+            MouseMove="MapPicture_OnMouseMove"
+            MouseRightButtonDown="My_Pos_Picture_OnMouseRightButtonDown">
+
+            <Border Background="Black"
+                    BorderThickness="2"
+                    BorderBrush="Blue"
+                    CornerRadius="2">
+                <TextBox Name="PopupWindow_txt" Height="auto" Width="auto" Margin="5" Foreground="White"/>
+            </Border>
+        </Popup>
+        
+
+        <Expander Header="Options" Margin="10,10,0,0" VerticalAlignment="Top"  HorizontalAlignment="Left">
+            <Grid Background ="#2C2C2C">
+                <StackPanel Margin="3" CanVerticallyScroll="True">
+                    <WrapPanel>
+                        <TextBlock Text="Graphic Quality:" VerticalAlignment="Center"/>
+                        <ComboBox Name="Graphic_Quality_ComboBox" VerticalAlignment="Center" SelectionChanged="Graphic_Quality_ComboBox_OnSelectionChanged"></ComboBox>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <TextBlock Text="FPS:" VerticalAlignment="Center"/>
+                        <Slider Name="Fps_Slider" 
+                                
+                                TickPlacement="BottomRight"
+                                TickFrequency="1"
+                                IsSnapToTickEnabled="True"
+                                Width="100"
+                                Minimum="1"
+                                Maximum="30"
+                                Value="3"
+                                SmallChange="1"
+                                LargeChange="1"
+                                VerticalAlignment="Center"
+                                ValueChanged="Fps_Slider_OnValueChanged"></Slider>
+                        <TextBox Text="{Binding ElementName=Fps_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
+                                 Margin="3"
+                                 TextAlignment="Center" 
+                                 Width="30"
+                                 VerticalAlignment="Center"></TextBox>
+                    </WrapPanel>
+                    <Button x:Name="ReloadExilePatherButton" Width="120" HorizontalAlignment="Left" Margin="10"
+                            Content="Reload ExilePather" Click="ReloadExilePatherButton_OnClick" />
+                    <!--<Button x:Name="RefreshButton" Width="120" HorizontalAlignment="Left" Margin="10"
+                            Content="Refresh" Click="RefreshButton_OnClick" />-->
+                    <CheckBox Content="Lock Camera To Player" x:Name="LockCameraToPlayer_cb" IsChecked="False"/>
+                    <CheckBox Content="Show Fly Map" x:Name="ShowFlyMap_cb" IsChecked="True" Checked="ShowFlyMap_cb_CheckBoxChanged" Unchecked="ShowFlyMap_cb_CheckBoxChanged"/>
+                    <!--<CheckBox Content="Show Player" x:Name="ShowLocalPlayer" IsChecked="True" />-->
+                    <!--<CheckBox Content="Show NavGrid" x:Name="ShowNavGrid" IsChecked="True" />-->
+                    <TextBlock Text="Controls:" />
+                    <TextBlock Text="  LMB: Pan" />
+                    <TextBlock Text="  MWheel: Zoom" />
+                    <TextBlock Text="Legend:" />
+                    <TextBlock Text="  Walkable Map:" Foreground="White" />
+                    <TextBlock Text="  Fly Map" Foreground="Turquoise"/>
+                    <TextBlock Text="  MyPosition:" Foreground="Red"/>
+                    <TextBlock Text="  Path Line:" Foreground="DarkRed"/>
+                    <TextBlock Text="  Path Nodes:" Foreground="DodgerBlue"/>
+                    <TextBlock Text="  Next Walk Spot:" Foreground="Green"/>
+                    <TextBlock Text="  Obstacles:" Foreground="Gray"/>
+                    <TextBlock Text="  Raycast:" Foreground="DarkGoldenrod"/>
+                    <TextBlock Text="  Raycast Hitpoint:" Foreground="Violet"/>
+                    <TextBlock Text=""/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="ExilePather Settings:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+                        <TextBlock Text="  BlockLockedDoors: "  VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+                        <ComboBox Name="BlockLockedDoors_ComboBox" SelectionChanged="BlockLockedDoors_ComboBox_OnSelectionChanged" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1">
+                        </ComboBox>
+
+                        <TextBlock Text="  BlockTrialOfAscendancy: " Grid.Row="2" Grid.Column="0"/>
+                        <ComboBox Name="BlockTrialOfAscendancy_ComboBox" SelectionChanged="BlockTrialOfAscendancy_ComboBox_OnSelectionChanged" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
+                        </ComboBox>
+
+                        <TextBlock Text="  BlockLockedTempleDoors: " Grid.Row="3" Grid.Column="0"/>
+                        <ComboBox Name="BlockLockedTempleDoors_ComboBox" SelectionChanged="BlockLockedTempleDoors_ComboBox_OnSelectionChanged" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1">
+                        </ComboBox>
+                    </Grid>
+                    
+                    
+                    <TextBlock Text=""/>
+                    <TextBlock Text="Player Location: 0, 0" x:Name="PlayerLocationText" />
+                    <TextBlock Text=""/>
+                    <TextBlock Text="Pathfind:"></TextBlock>
+                    <TextBlock Text="  Controls:" />
+                    <TextBlock Text="    RMB + W : Set Origin to mouse position." />
+                    <TextBlock Text="    RMB + D : Set Destination to mouse position." />
+                    <TextBlock Text="    RMB + Q : CreatePath." />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Origin: " VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+                        <WrapPanel Grid.Row="0" Grid.Column="1">
+                            <Label Content="X:"  VerticalAlignment="Center"/>
+                            <TextBox Text="" x:Name="Pathfind_Origin_X_txt" Width="40" TextAlignment="Center" VerticalAlignment="Center"/>
+                            <Label Content="Y:"  VerticalAlignment="Center"/>
+                            <TextBox Text="" x:Name="Pathfind_Origin_Y_txt" Width="40" TextAlignment="Center" VerticalAlignment="Center"/>
+                        </WrapPanel>
+                        <Button Name="Pathfind_Origin_btn" Grid.Row="0" Grid.Column="2" Content="Player Position" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,0,0,0" Click="Pathfind_Origin_btn_OnClick"></Button>
+
+                        <Label Content="Dest: " VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"/>
+                        <WrapPanel Grid.Row="1" Grid.Column="1">
+                            <Label Content="X:"  VerticalAlignment="Center"/>
+                            <TextBox Text="" x:Name="Pathfind_Destinatio_X_txt" TextAlignment="Center" Width="40"  VerticalAlignment="Center"/>
+                            <Label Content="Y:"  VerticalAlignment="Center"/>
+                            <TextBox Text="" x:Name="Pathfind_Destinatio_Y_txt" TextAlignment="Center" Width="40"  VerticalAlignment="Center"/>
+                        </WrapPanel>
+                        <Button Name="Pathfind_Destinatio_btn" Grid.Row="1" Grid.Column="2" Content="Player Position" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,0,0,0" Click="Pathfind_Destinatio_btn_OnClick"></Button>
+                        <Grid Grid.Row="2" 
+                              Grid.Column="0" 
+                              Grid.ColumnSpan="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Nodes Dist: " VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+                            <Slider Name="Nodes_Dist_Slider" 
+                                    Grid.Row="0" 
+                                    Grid.Column="1" 
+                                    TickPlacement="BottomRight"
+                                    TickFrequency="1"
+                                    IsSnapToTickEnabled="True"
+                                    Width="150"
+                                    Minimum="1"
+                                    Maximum="60"
+                                    Value="3"
+                                    SmallChange="1"
+                                    LargeChange="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"></Slider>
+                            <TextBox Text="{Binding ElementName=Nodes_Dist_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
+                                     Grid.Row="0" 
+                                     Grid.Column="2" 
+                                     Margin="3"
+                                     TextAlignment="Center" 
+                                     Width="30"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Right"></TextBox>
+                        </Grid>
+                        
+                        <!--<TextBox Text="3" x:Name="Nodes_Dist_txt" Width="40" TextAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>-->
+                        <Button Content="CreatePath" Name="CreatePath_btn" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Height="20" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center" Click="CreatePath_btn_OnClick"></Button>
+                    </Grid>
+                    <!-- <Button Content="Pathfind" Click="Button_Click"></Button> -->
+                </StackPanel>
+            </Grid>
+        </Expander>
+        <Expander  Header="Tgts/Tdts" Margin="0,10,30,0" VerticalAlignment="Top"  HorizontalAlignment="Right" MinWidth="100">
+            <Grid Background ="#2C2C2C">
+                <StackPanel>
+                    <TextBlock Text="  Controls:" />
+                    <TextBlock Text="    RMB + T : Show Tgts/Tdts at mouse location." />
+                    <TextBlock Text="" />
+                    <CheckBox Name="Track_Tgts_under_Player_CheckBox" Content="Show Tgts on map"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Range to show: " VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+                        <Slider Name="Tgts_Range_Slider" 
+                                    Grid.Row="0" 
+                                    Grid.Column="1" 
+                                    TickPlacement="BottomRight"
+                                    TickFrequency="1"
+                                    IsSnapToTickEnabled="True"
+                                    Width="150"
+                                    Minimum="1"
+                                    Maximum="10"
+                                    Value="1"
+                                    SmallChange="1"
+                                    LargeChange="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"></Slider>
+                        <TextBox Text="{Binding ElementName=Tgts_Range_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
+                                     Grid.Row="0" 
+                                     Grid.Column="2" 
+                                     Margin="3"
+                                     TextAlignment="Center" 
+                                     Width="30"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Right"></TextBox>
+                    </Grid>
+                    <GroupBox BorderThickness="1" BorderBrush="White" Background="Transparent">
+                        <GroupBox.Header>
+                            <Label Content="Tgts" Foreground="White"></Label>
+                        </GroupBox.Header>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="250">
+                            <TextBox Background="Transparent"
+                                     BorderThickness="0"
+                                     IsReadOnly="True"
+                                     Name="Tgts_TextBlock" 
+                                     TextWrapping="NoWrap" Text=""/>
+                        </ScrollViewer>
+                        
+                    </GroupBox>
+                    <GroupBox BorderThickness="1" BorderBrush="White" Background="Transparent">
+                        <GroupBox.Header>
+                            <Label Content="Tdts" Foreground="White"></Label>
+                        </GroupBox.Header>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="250">
+                            <TextBox Background="Transparent"
+                                     BorderThickness="0"
+                                     IsReadOnly="True"
+                                     Name="Tdts_TextBlock" 
+                                     TextWrapping="NoWrap" Text=""/>
+                        </ScrollViewer>
+                        
+                    </GroupBox>
+                </StackPanel>
+            </Grid>
+            
+        </Expander>
+    </Grid>
+</UserControl>

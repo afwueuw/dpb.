@@ -1,0 +1,15 @@
+{
+  "AssemblyName": "ExamplePlugin",
+  "FileList": [
+    "ExamplePlugin.cs",
+    "ExamplePluginGui.baml",
+    "ExamplePluginGui.g.cs",
+    "ExamplePluginGui.xaml",
+    "ExamplePluginGui.xaml.cs",
+    "ExamplePluginSettings.cs",
+    "ExempleTask.cs",
+    "Flasks.cs"
+  ],
+  "Dependencies": [],
+  "References": []
+}

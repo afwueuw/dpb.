@@ -1,0 +1,110 @@
+﻿<UserControl x:Class="ExampleRoutine.ExampleRoutineGui"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ExampleRoutine"
+             mc:Ignorable="d" 
+             d:DesignHeight="Auto" 
+             d:DesignWidth="Auto">
+    <Grid DataContext="{x:Static local:ExampleRoutineSettings.Instance}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <GroupBox Grid.Row="0" Grid.Column="0" Header="Slots">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Single Target Melee Skill Slot: " Margin="3,5,3,1"
+                       ToolTipService.ToolTip="The skill slot  (1-8) to use in melee range. If set to -1, it will not be used." />
+                <ComboBox Name="SingleTargetMeleeSlotComboBox" Grid.Row="0" Grid.Column="1" Margin="3"
+                          ItemsSource="{Binding AllSkillSlots}" SelectedItem="{Binding Path=SingleTargetMeleeSlot}" IsEditable="False" />
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Single Target Ranged Skill Slot: " Margin="3,5,3,1"
+                       ToolTipService.ToolTip="The skill slot (1-8) to use outside of melee range. If set to -1, it will not be used." />
+                <ComboBox Name="SingleTargetRangedSlotComboBox" Grid.Row="1" Grid.Column="1" Margin="3"
+                          ItemsSource="{Binding AllSkillSlots}" SelectedItem="{Binding Path=SingleTargetRangedSlot}" IsEditable="False" />
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Aoe Melee Skill Slot: " Margin="3,5,3,1"
+                       ToolTipService.ToolTip="The skill slot  (1-8) to use in melee range for AoE. If set to -1, it will not be used." />
+                <ComboBox Name="AoeMeleeSlotComboBox" Grid.Row="2" Grid.Column="1" Margin="3"
+                          ItemsSource="{Binding AllSkillSlots}" SelectedItem="{Binding Path=AoeMeleeSlot}" IsEditable="False" />
+
+                <Label Grid.Row="3" Grid.Column="0" Content="Aoe Ranged Skill Slot: " Margin="3,5,3,1"
+                       ToolTipService.ToolTip="The skill slot (1-8) to use outside of melee range for AoE. If set to -1, it will not be used." />
+                <ComboBox Name="AoeRangedSlotComboBox" Grid.Row="3" Grid.Column="1" Margin="3" 
+                          ItemsSource="{Binding AllSkillSlots}" SelectedItem="{Binding Path=AoeRangedSlot}" IsEditable="False"/>
+
+                <Label Grid.Row="4" Grid.Column="0" Content="Fallback Skill Slot: " Margin="3,5,3,1"
+                       ToolTipService.ToolTip="The skill to force use when out of mana, or the desired skill cannot be cast." />
+                <ComboBox Name="FallbackSlotComboBox" Grid.Row="4" Grid.Column="1" Margin="3" 
+                          ItemsSource="{Binding AllSkillSlots}" SelectedItem="{Binding Path=FallbackSlot}" IsEditable="False"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Grid.Column="0" Header="Ranges">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Combat Range: " Margin="3,5,3,1"
+                       ToolTipService.ToolTip="How far to consider combat targets. Do not set too high, or the bot might get stuck running back and forth trying to get to a target." />
+                <TextBox Name="CombatRangeTextBox" Grid.Row="0" Grid.Column="1" Margin="3" Text="{Binding CombatRange, Mode=TwoWay}"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Max Melee Range: " Margin="3,5,3,1"
+                       ToolTipService.ToolTip="How close does a mob need to be to trigger the Melee skill. Do not set too high, as the cursor will overlap the GUI." />
+                <TextBox Name="MaxMeleeRangeTextBox" Grid.Row="1" Grid.Column="1" Margin="3" Text="{Binding MaxMeleeRange, Mode=TwoWay}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Max Range Range: " Margin="3,5,3,1"
+                       ToolTipService.ToolTip="How close does a mob need to be to trigger the Range skill. Do not set too high, as the cursor will overlap the GUI." />
+                <TextBox Name="MaxRangeRangeTextBox" Grid.Row="2" Grid.Column="1" Margin="3" Text="{Binding MaxRangeRange, Mode=TwoWay}"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="2" Grid.Column="0" Header="Options">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+                <CheckBox Content="SkipShrines" Grid.Row="0" Grid.Column="0" IsChecked="{Binding SkipShrines}" Margin="3,5,3,1"></CheckBox>
+                <CheckBox Content="Attack in Place" Grid.Row="1" Grid.Column="0" IsChecked="{Binding AlwaysAttackInPlace}" Margin="3,5,3,1"></CheckBox>
+                <Label Grid.Row="2" Grid.Column="0" Content="Aoe Pack Size: " Margin="3,5,3,1"
+                   ToolTipService.ToolTip="Number of pack size near target to trigger Aoe skill." />
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="3" Text="{Binding AoePackSize, Mode=TwoWay}"/>
+            </Grid>
+    </GroupBox>
+</Grid>
+</UserControl>

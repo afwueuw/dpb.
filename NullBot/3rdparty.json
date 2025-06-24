@@ -1,0 +1,17 @@
+{
+  "AssemblyName": "NullBot",
+  "FileList": [
+    "CombatTask.cs",
+    "ExampleTask.cs",
+    "FallbackTask.cs",
+    "NullBot.cs",
+    "NullBotGui.baml",
+    "NullBotGui.g.cs",
+    "NullBotGui.xaml",
+    "NullBotGui.xaml.cs",
+    "NullBotSettings.cs",
+    "PostCombatHookTask.cs"
+  ],
+  "Dependencies": [],
+  "References": []
+}

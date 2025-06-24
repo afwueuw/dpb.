@@ -1,0 +1,13 @@
+{
+  "AssemblyName": "ExampleRoutine",
+  "FileList": [
+    "ExampleRoutine.cs",
+    "ExampleRoutineSettings.cs",
+    "ExampleRoutineGui.baml",
+    "ExampleRoutineGui.g.cs",
+    "ExampleRoutineGui.xaml",
+    "ExampleRoutineGui.xaml.cs",
+  ],
+  "Dependencies": [],
+  "References": []
+}

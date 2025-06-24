@@ -1,0 +1,13 @@
+{
+  "AssemblyName": "Legacy",
+  "FileList": [
+    "DevTab\\DevTab.cs",
+    "DevTab\\DevTabSettings.cs",
+    "DevTab\\Gui.baml",
+    "DevTab\\Gui.g.cs",
+    "DevTab\\Gui.xaml",
+    "DevTab\\Gui.xaml.cs",    
+  ],
+  "Dependencies": [],
+  "References": []
+}

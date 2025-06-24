@@ -1,0 +1,13 @@
+{
+  "AssemblyName": "ObjectExplorer",
+  "FileList": [
+    "Gui.baml",
+    "Gui.g.cs",
+    "Gui.xaml",
+    "Gui.xaml.cs",
+    "ObjectExplorer.cs",
+    "ObjectExplorerSettings.cs"
+  ],
+  "Dependencies": [],
+  "References": []
+}

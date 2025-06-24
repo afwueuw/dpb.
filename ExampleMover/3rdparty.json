@@ -1,0 +1,13 @@
+{
+  "AssemblyName": "ExampleMover",
+  "FileList": [
+    "ExampleMover.cs",
+    "ExampleMoverGui.baml",
+    "ExampleMoverGui.g.cs",
+    "ExampleMoverGui.xaml",
+    "ExampleMoverGui.xaml.cs",
+    "ExampleMoverSettings.cs"
+  ],
+  "Dependencies": [],
+  "References": []
+}
